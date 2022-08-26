@@ -28,6 +28,10 @@ For running model_tensorflow you will need python 3.9.12 and can run this:
 Below is some predictions using this model.\
 ![alt text](./assets/prediction.png "Prediction")
 
+#### CoreML
+We convert the model to CoreML package, which can be used for developing on smartphone. The code for converting is in [CoreML.ipynb](https://github.com/JorgVervaet/Computer_Vision_Crosswalk_Detection/blob/main/CoreML.ipynb)
+
+
 
 ## 2. Yolo V5 
 

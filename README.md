@@ -15,9 +15,9 @@ We have created 2 models:
 
 #### Model training:
 
-This model can be found in [model_tensorflow.ipynb](https://github.com/JorgVervaet/Computer_Vision_Crosswalk_Detection/blob/main/model_tensorflow.ipynb).It has 17 layers, and can well predict the crosswalk location on the picture with crosswalk. 
+This model can be found in [model_tensorflow.ipynb](https://github.com/JorgVervaet/Computer_Vision_Crosswalk_Detection/blob/main/model_tensorflow.ipynb).It has 17 layers, and can well predict the crosswalk location on the image with crosswalk. 
 
-To exclude bounding box prediction on non-crosswalk image, we have downloaded extra images of street view without crosswalk. We have added the values to the corresponding columns (xmin=0, ymin=0, xmax=0, ymax=0) in the annotations for these images.
+To exclude bounding box prediction on non-crosswalk image, we have downloaded extra images of street view without crosswalk. We added the values to the corresponding columns (xmin=0, ymin=0, xmax=0, ymax=0) in the annotations for these images, and train it again with both crosswalk and non-crosswalk images.
 
 The idea is that when there is a crosswalk, it will detect and predict the bounding box of the crosswalk. For image without crosswalk, it will make a tiny bounding box so that we can filter it out.
 
@@ -26,9 +26,12 @@ For running model_tensorflow you will need python 3.9.12 and can run this:
 - `pip install -r tf_requirements.txt`
 
 Below is some predictions using this model.\
+![alt text](./assets/prediction.png "Prediction")
 
 
 ## 2. Yolo V5 
+
+Yolo V5 is the other model we use, to avoid the probelm of detection on non-crosswalk image we had in tensorflow model.
 
 ### Data handling
 - Input image labelling format 
@@ -52,10 +55,10 @@ The configurations for the training are divided to three YAML files and they wer
 
 
 ### Training
-We have a large data set with 30000+ images. Following [the offical tutorial](https://colab.research.google.com/github/ultralytics/yolov5/blob/master/tutorial.ipynb), we have split the data into train,validation and test. 
+We have a large data set with 30000+ images. Following [the YOLO V5 offical tutorial](https://colab.research.google.com/github/ultralytics/yolov5/blob/master/tutorial.ipynb), we have split the data into train,validation and test. 
 
 We set our training commands as below:
-- `!python train.py --img 640 --batch 20 --epochs 5 --data /content/yolov5/data/custom_data.yaml --weights yolov5s.pt --cache`
+- `!python train.py --img 640 --batch 2 --epochs 6 --data /content/yolov5/data/custom_data.yaml --weights yolov5s.pt --cache`
 
 * batch — batch size. Use the largest batch size that your hardware allows for.
 * epochs — number of epochs
@@ -71,7 +74,7 @@ We have used the validation script to see if our model predict good. Performance
 ![alt text](./assets/results.png "Evaluation")
 
 ### Inference
-After we got our model with good training performances, we apply inference for image and videos. This model can predict good even on rainbow crosswalk, and also on the crosswalk with extra object on it.
+After we got our model with good training performances, we apply inference for image and videos. This model can predict well for crosswalk both in daytime and night time (with dark light). And it can also detect rainbow crosswalk, and the crosswalk with extra object on it, like a zebra on a crosswalk.
 
 Below are some examples.
 ![alt text](./assets/brussel.jpeg "Crosswalk in Brussel")

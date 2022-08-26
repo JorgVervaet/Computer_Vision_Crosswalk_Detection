@@ -55,7 +55,7 @@ The configurations for the training are divided to three YAML files and they wer
 We have a large data set with 30000+ images. Following [the offical tutorial](https://colab.research.google.com/github/ultralytics/yolov5/blob/master/tutorial.ipynb), we have split the data into train,validation and test. 
 
 We set our training commands as below:
-- `!python train.py --img 640 --batch 200 --epochs 5 --data /content/yolov5/data/custom_data.yaml --weights yolov5s.pt --cache`
+- `!python train.py --img 640 --batch 20 --epochs 5 --data /content/yolov5/data/custom_data.yaml --weights yolov5s.pt --cache`
 
 * batch — batch size. Use the largest batch size that your hardware allows for.
 * epochs — number of epochs
@@ -68,6 +68,7 @@ We set our training commands as below:
 ### Validation
 
 We have used the validation script to see if our model predict good. Performances can be evaluated over the training, validation or test dataset splits.
+![alt text](./assets/results.png "Evaluation")
 
 ### Inference
 After we got our model with good training performances, we apply inference for image and videos. This model can predict good even on rainbow crosswalk, and also on the crosswalk with extra object on it.
